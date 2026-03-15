@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Milk Delivery</title>
 
 <style>
+
 body{
 margin:0;
 font-family:Arial;
@@ -19,15 +21,19 @@ min-height:100vh;
 padding:40px;
 }
 
+h1{
+font-size:40px;
+}
+
 .btn{
 background:#28a745;
-padding:14px 22px;
+padding:15px 25px;
 border:none;
 color:white;
 font-size:18px;
 border-radius:8px;
-margin-top:15px;
 cursor:pointer;
+margin-top:20px;
 }
 
 .container{
@@ -44,8 +50,16 @@ input,select{
 width:90%;
 padding:10px;
 margin:10px;
+font-size:16px;
 }
+
+.review{
+margin-top:30px;
+font-style:italic;
+}
+
 </style>
+
 </head>
 
 <body>
@@ -53,32 +67,38 @@ margin:10px;
 <div class="overlay">
 
 <h1>🥛 Fresh Milk Service</h1>
-<p>Trusted Milk Business Since 20+ Years</p>
+<p>Trusted Milk Supply for 20+ Years</p>
 
 <button class="btn" onclick="showOrder()">Order Milk</button>
 
+<div class="review">
+⭐ "Very fresh milk everyday!" – Ravi  
+<br>
+⭐ "Best milk supplier in our area." – Sita
+</div>
+
 <div class="container" id="orderBox">
 
-<input id="name" placeholder="Customer Name">
-<input id="phone" placeholder="Phone Number">
-<input id="location" placeholder="Location">
+<h2>Order Milk</h2>
 
-<select id="liters" onchange="priceCalc()">
-<option value="1">1 Liter</option>
-<option value="2">2 Liters</option>
-<option value="3">3 Liters</option>
-<option value="4">4 Liters</option>
-<option value="5">5 Liters</option>
-</select>
+<input type="text" id="name" placeholder="Customer Name">
 
-<h3>Total ₹ <span id="price">50</span></h3>
+<input type="tel" id="phone" placeholder="Phone Number">
+
+<input type="text" id="location" placeholder="Location">
+
+<input type="number" id="liters" placeholder="Enter liters (example 1.5)" step="0.1" oninput="calculatePrice()">
+
+<h3>Total Price: ₹ <span id="price">0</span></h3>
 
 <select id="payment">
 <option value="cod">Cash on Delivery</option>
 <option value="upi">UPI Payment</option>
 </select>
 
-<button class="btn" onclick="processOrder()">Continue</button>
+<br>
+
+<button class="btn" onclick="processOrder()">Place Order</button>
 
 </div>
 
@@ -90,9 +110,14 @@ function showOrder(){
 document.getElementById("orderBox").style.display="block";
 }
 
-function priceCalc(){
-let liters=document.getElementById("liters").value;
-document.getElementById("price").innerText=liters*50;
+function calculatePrice(){
+
+let liters=parseFloat(document.getElementById("liters").value) || 0;
+
+let price=liters*50;
+
+document.getElementById("price").innerText=price.toFixed(2);
+
 }
 
 function processOrder(){
@@ -100,23 +125,27 @@ function processOrder(){
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let location=document.getElementById("location").value;
-let liters=document.getElementById("liters").value;
+let liters=parseFloat(document.getElementById("liters").value) || 0;
 let payment=document.getElementById("payment").value;
+
 let price=liters*50;
 
 let message="Milk Order%0A%0A"
 +"Name: "+name+"%0A"
 +"Phone: "+phone+"%0A"
 +"Location: "+location+"%0A"
-+"Liters: "+liters+"L%0A"
-+"Total: ₹"+price+"%0A"
++"Liters: "+liters+" L%0A"
++"Total Price: ₹"+price+"%0A"
 +"Payment: "+payment.toUpperCase();
 
-let whatsapp="https://wa.me/918328688331?text="+message;
+let whatsapp="https://wa.me/918328688831?text="+message;
 
 if(payment==="cod"){
+
 window.open(whatsapp,'_blank');
+
 }
+
 else{
 
 let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
@@ -124,8 +153,11 @@ let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
 window.location.href=upi;
 
 setTimeout(function(){
-alert("After completing payment, click OK to send order.");
+
+alert("After completing payment click OK to send order");
+
 window.open(whatsapp,'_blank');
+
 },6000);
 
 }
