@@ -1,65 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Milk Delivery</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial;
-background:url("milk-bg.jpg") center/cover no-repeat;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:url("milk-bg.jpg") center/cover no-repeat fixed;
 color:white;
 text-align:center;
 }
 
+/* DARK OVERLAY */
 .overlay{
-background:rgba(0,0,0,0.6);
+background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
 min-height:100vh;
-padding:40px;
+padding:40px 20px;
 }
 
 h1{
-font-size:40px;
+font-size:42px;
+font-weight:600;
+margin-top:30px;
 }
 
+.subtitle{
+opacity:0.8;
+margin-top:10px;
+}
+
+/* PREMIUM BUTTON */
 .btn{
-background:#28a745;
-padding:15px 25px;
+background:linear-gradient(45deg,#00c853,#64dd17);
 border:none;
-color:white;
+padding:15px 28px;
 font-size:18px;
-border-radius:8px;
+border-radius:30px;
+color:white;
 cursor:pointer;
-margin-top:20px;
+margin-top:25px;
+transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
 
+.btn:hover{
+transform:scale(1.05);
+}
+
+/* PREMIUM FORM CARD */
 .container{
 display:none;
-background:white;
-color:black;
-padding:20px;
-border-radius:10px;
-max-width:400px;
-margin:30px auto;
+backdrop-filter:blur(15px);
+background:rgba(255,255,255,0.15);
+border-radius:20px;
+padding:25px;
+max-width:420px;
+margin:35px auto;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+animation:fadeIn 0.6s ease;
 }
 
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* INPUT STYLE */
 input,select{
-width:90%;
-padding:10px;
-margin:10px;
-font-size:16px;
+width:100%;
+padding:14px;
+margin:10px 0;
+border-radius:10px;
+border:none;
+outline:none;
+font-size:15px;
+}
+
+input:focus{
+box-shadow:0 0 8px #64dd17;
+}
+
+/* PRICE BOX */
+.price{
+margin-top:10px;
+font-size:20px;
+font-weight:600;
 }
 
 .review{
 margin-top:30px;
+opacity:0.9;
 font-style:italic;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -67,38 +111,41 @@ font-style:italic;
 <div class="overlay">
 
 <h1>🥛 Fresh Milk Service</h1>
-<p>Trusted Milk Supply for 20+ Years</p>
+<p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
 
 <button class="btn" onclick="showOrder()">Order Milk</button>
 
 <div class="review">
-⭐ "Very fresh milk everyday!" – Ravi  
+⭐ “Pure & Fresh Milk Everyday”  
 <br>
-⭐ "Best milk supplier in our area." – Sita
+⭐ “Fast Delivery & Trusted Service”
 </div>
 
 <div class="container" id="orderBox">
 
-<h2>Order Milk</h2>
+<h2>Place Your Order</h2>
 
-<input type="text" id="name" placeholder="Customer Name">
+<input type="text" id="name" placeholder="👤 Customer Name">
 
-<input type="tel" id="phone" placeholder="Phone Number">
+<input type="tel" id="phone" placeholder="📞 Phone Number">
 
-<input type="text" id="location" placeholder="Location">
+<input type="text" id="location" placeholder="📍 Delivery Location">
 
-<input type="number" id="liters" placeholder="Enter liters (example 1.5)" step="0.1" oninput="calculatePrice()">
+<input type="number" id="liters"
+placeholder="🥛 Enter liters (Example 1.5)"
+step="0.1"
+oninput="calculatePrice()">
 
-<h3>Total Price: ₹ <span id="price">0</span></h3>
+<div class="price">
+Total Price: ₹ <span id="price">0</span>
+</div>
 
 <select id="payment">
-<option value="cod">Cash on Delivery</option>
-<option value="upi">UPI Payment</option>
+<option value="cod">💵 Cash on Delivery</option>
+<option value="upi">📲 UPI Payment</option>
 </select>
 
-<br>
-
-<button class="btn" onclick="processOrder()">Place Order</button>
+<button class="btn" onclick="processOrder()">Confirm Order</button>
 
 </div>
 
@@ -111,13 +158,9 @@ document.getElementById("orderBox").style.display="block";
 }
 
 function calculatePrice(){
-
-let liters=parseFloat(document.getElementById("liters").value) || 0;
-
+let liters=parseFloat(document.getElementById("liters").value)||0;
 let price=liters*50;
-
 document.getElementById("price").innerText=price.toFixed(2);
-
 }
 
 function processOrder(){
@@ -125,7 +168,7 @@ function processOrder(){
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let location=document.getElementById("location").value;
-let liters=parseFloat(document.getElementById("liters").value) || 0;
+let liters=parseFloat(document.getElementById("liters").value)||0;
 let payment=document.getElementById("payment").value;
 
 let price=liters*50;
@@ -141,11 +184,8 @@ let message="Milk Order%0A%0A"
 let whatsapp="https://wa.me/918328688831?text="+message;
 
 if(payment==="cod"){
-
 window.open(whatsapp,'_blank');
-
 }
-
 else{
 
 let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
@@ -153,11 +193,8 @@ let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
 window.location.href=upi;
 
 setTimeout(function(){
-
-alert("After completing payment click OK to send order");
-
+alert("After payment click OK to send order");
 window.open(whatsapp,'_blank');
-
 },6000);
 
 }
