@@ -181,7 +181,7 @@
 
     <div class="review">
       ⭐ “Pure & Fresh Milk Everyday”<br>
-      ⭐ “Fast Delivery & Trusted Service”
+      ⭐ “Fast Delivery & Trusted Service”-MUKALLA KRISHNA
     </div>
 
     <div class="container" id="orderBox">
@@ -226,12 +226,10 @@
         </div>
 
         <div class="note">
-          PhonePe లేదా Paytm ద్వారా payment complete చేసిన తర్వాత<br>
+          PhonePe / Paytm / GPay లో QR scan చేసి లేదా UPI ID paste చేసి payment complete చేసిన తర్వాత<br>
           క్రింద <b>UTR / Transaction ID</b> పెట్టండి.
         </div>
 
-        <button class="small-btn" onclick="openPhonePe()">Pay with PhonePe</button>
-        <button class="small-btn" onclick="openPaytm()">Pay with Paytm</button>
         <button class="small-btn" onclick="copyUpiId()">Copy UPI ID</button>
 
         <input type="text" id="utr" placeholder="Enter UTR / Transaction ID">
@@ -243,7 +241,6 @@
 
   <script>
     let pendingWhatsAppLink = "";
-    let pendingUpiLink = "";
 
     function showOrder(){
       document.getElementById("orderBox").style.display = "block";
@@ -280,7 +277,6 @@
         + "చెల్లింపు విధానం: " + paymentTelugu;
 
       pendingWhatsAppLink = "https://wa.me/917207258984?text=" + message;
-      pendingUpiLink = "upi://pay?pa=8328688331@ybl&pn=Milk Service&am=" + price.toFixed(2) + "&cu=INR";
 
       document.getElementById("successMsg").style.display = "none";
       document.getElementById("upiBox").style.display = "none";
@@ -294,22 +290,6 @@
         document.getElementById("upiBox").style.display = "block";
         document.getElementById("upiBox").scrollIntoView({behavior:"smooth"});
       }
-    }
-
-    function openPhonePe(){
-      if(!pendingUpiLink){
-        alert("Please fill order details first.");
-        return;
-      }
-      window.location.href = pendingUpiLink;
-    }
-
-    function openPaytm(){
-      if(!pendingUpiLink){
-        alert("Please fill order details first.");
-        return;
-      }
-      window.location.href = pendingUpiLink;
     }
 
     function copyUpiId(){
@@ -326,7 +306,7 @@
         return;
       }
 
-      let finalWhatsAppLink = pendingWhatsAppLink + "%0A" + "UTR ID: " + encodeURIComponent(utr);
+      let finalWhatsAppLink = pendingWhatsAppLink + "%0AUTR ID: " + encodeURIComponent(utr);
 
       document.getElementById("successMsg").style.display = "block";
       window.open(finalWhatsAppLink, "_blank");
