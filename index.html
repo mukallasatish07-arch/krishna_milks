@@ -1,108 +1,174 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Milk Delivery</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
 body{
-background:url("new.jpg") center/cover no-repeat fixed;
-color:white;
-text-align:center;
+  background:url("new.jpg") center/cover no-repeat fixed;
+  color:white;
+  text-align:center;
 }
 
-/* DARK OVERLAY */
 .overlay{
-background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
-min-height:100vh;
-padding:40px 20px;
+  background:linear-gradient(rgba(0,0,0,0.72),rgba(0,0,0,0.72));
+  min-height:100vh;
+  padding:40px 20px;
+  animation:fadePage 1s ease;
+}
+
+@keyframes fadePage{
+  from{opacity:0}
+  to{opacity:1}
 }
 
 h1{
-font-size:42px;
-font-weight:600;
-margin-top:30px;
+  font-size:42px;
+  font-weight:700;
+  margin-top:20px;
+  animation:slideDown 1s ease;
+}
+
+@keyframes slideDown{
+  from{transform:translateY(-35px);opacity:0}
+  to{transform:translateY(0);opacity:1}
 }
 
 .subtitle{
-opacity:0.8;
-margin-top:10px;
+  opacity:0.9;
+  margin-top:10px;
+  font-size:16px;
 }
 
-/* PREMIUM BUTTON */
 .btn{
-background:linear-gradient(45deg,#00c853,#64dd17);
-border:none;
-padding:15px 28px;
-font-size:18px;
-border-radius:30px;
-color:white;
-cursor:pointer;
-margin-top:25px;
-transition:0.3s;
-box-shadow:0 5px 15px rgba(0,0,0,0.4);
+  background:linear-gradient(45deg,#00c853,#64dd17);
+  border:none;
+  padding:14px 28px;
+  font-size:17px;
+  border-radius:30px;
+  color:white;
+  cursor:pointer;
+  margin-top:20px;
+  transition:0.3s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.35);
 }
 
 .btn:hover{
-transform:scale(1.05);
+  transform:scale(1.05);
 }
 
-/* PREMIUM FORM CARD */
 .container{
-display:none;
-backdrop-filter:blur(15px);
-background:rgba(255,255,255,0.15);
-border-radius:20px;
-padding:25px;
-max-width:420px;
-margin:35px auto;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-animation:fadeIn 0.6s ease;
+  display:none;
+  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,0.14);
+  border-radius:22px;
+  padding:25px;
+  max-width:430px;
+  margin:35px auto 0;
+  box-shadow:0 10px 30px rgba(0,0,0,0.45);
+  animation:fadeIn 0.6s ease;
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+  from{opacity:0;transform:translateY(18px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-/* INPUT STYLE */
 input,select{
-width:100%;
-padding:14px;
-margin:10px 0;
-border-radius:10px;
-border:none;
-outline:none;
-font-size:15px;
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  font-size:15px;
 }
 
-input:focus{
-box-shadow:0 0 8px #64dd17;
+input:focus,select:focus{
+  box-shadow:0 0 8px #64dd17;
 }
 
-/* PRICE BOX */
 .price{
-margin-top:10px;
-font-size:20px;
-font-weight:600;
+  margin-top:8px;
+  font-size:21px;
+  font-weight:600;
 }
 
 .review{
-margin-top:30px;
-opacity:0.9;
-font-style:italic;
+  margin-top:28px;
+  opacity:0.95;
+  font-style:italic;
+  line-height:1.8;
 }
 
+.success{
+  display:none;
+  margin-top:16px;
+  color:#98ff98;
+  font-weight:600;
+}
+
+.paymentBox{
+  display:none;
+  margin-top:20px;
+  background:rgba(255,255,255,0.12);
+  border-radius:18px;
+  padding:18px;
+  animation:fadeIn 0.5s ease;
+}
+
+.paymentBox h3{
+  margin-bottom:10px;
+}
+
+.qr-img{
+  width:210px;
+  max-width:100%;
+  border-radius:14px;
+  background:#fff;
+  padding:8px;
+  margin-top:10px;
+}
+
+.upi-text{
+  margin-top:10px;
+  font-size:15px;
+  line-height:1.7;
+}
+
+.small-btn{
+  background:linear-gradient(45deg,#ff9800,#ffb300);
+  border:none;
+  padding:12px 22px;
+  font-size:15px;
+  border-radius:28px;
+  color:white;
+  cursor:pointer;
+  margin:10px 6px 0;
+  transition:0.3s;
+}
+
+.small-btn:hover{
+  transform:scale(1.04);
+}
+
+.note{
+  margin-top:10px;
+  font-size:13px;
+  opacity:0.9;
+  line-height:1.6;
+}
 </style>
 </head>
 
@@ -110,101 +176,133 @@ font-style:italic;
 
 <div class="overlay">
 
-<h1>🥛 Fresh Milk Service</h1>
-<p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
+  <h1>🥛 Fresh Milk Service</h1>
+  <p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
 
-<button class="btn" onclick="showOrder()">Order Milk</button>
+  <button class="btn" onclick="showOrder()">Order Milk</button>
 
-<div class="review">
-⭐ “Pure & Fresh Milk Everyday”  
-<br>
-⭐ “Fast Delivery & Trusted Service”-MUKALLA KRISHNA
-</div>
+  <div class="review">
+    ⭐ “Pure & Fresh Milk Everyday”<br>
+    ⭐ “Fast Delivery & Trusted Service”
+  </div>
 
-<div class="container" id="orderBox">
+  <div class="container" id="orderBox">
+    <h2>Place Your Order</h2>
 
-<h2>Place Your Order</h2>
+    <input type="text" id="name" placeholder="👤 Customer Name">
+    <input type="tel" id="phone" placeholder="📞 Phone Number">
+    <input type="text" id="location" placeholder="📍 Delivery Location">
 
-<input type="text" id="name" placeholder="👤 Customer Name">
+    <input
+      type="number"
+      id="liters"
+      placeholder="🥛 Enter liters (Example 1.5)"
+      step="0.1"
+      oninput="calculatePrice()"
+    >
 
-<input type="tel" id="phone" placeholder="📞 Phone Number">
+    <div class="price">
+      Total Price: ₹ <span id="price">0</span>
+    </div>
 
-<input type="text" id="location" placeholder="📍 Delivery Location">
+    <select id="payment">
+      <option value="cod">💵 Cash on Delivery</option>
+      <option value="upi">📲 UPI Payment</option>
+    </select>
 
-<input type="number" id="liters"
-placeholder="🥛 Enter liters (Example 1.5)"
-step="0.1"
-oninput="calculatePrice()">
+    <button class="btn" onclick="processOrder()">Confirm Order</button>
 
-<div class="price">
-Total Price: ₹ <span id="price">0</span>
-</div>
+    <div class="success" id="successMsg">
+      ✅ మీ ఆర్డర్ విజయవంతంగా పంపబడింది!
+    </div>
 
-<select id="payment">
-<option value="cod">💵 Cash on Delivery</option>
-<option value="upi">📲 UPI Payment</option>
-</select>
+    <div class="paymentBox" id="upiBox">
+      <h3>📲 Scan & Pay</h3>
+      <img src="qr.jpg" alt="UPI QR Code" class="qr-img">
 
-<button class="btn" onclick="processOrder()">Confirm Order</button>
+      <div class="upi-text">
+        UPI ID: <b>8328688331@ybl</b><br>
+        Amount: ₹ <b id="upiAmount">0</b>
+      </div>
 
-</div>
+      <div class="note">
+        QR scan చేసి payment complete చేసిన తర్వాత<br>
+        <b>I Have Paid</b> button నొక్కండి.
+      </div>
 
+      <button class="small-btn" onclick="openUpiApp()">Open UPI App</button>
+      <button class="small-btn" onclick="sendWhatsAppAfterPayment()">I Have Paid</button>
+    </div>
+  </div>
 </div>
 
 <script>
+let pendingWhatsAppLink = "";
+let pendingUpiLink = "";
 
 function showOrder(){
-document.getElementById("orderBox").style.display="block";
+  document.getElementById("orderBox").style.display = "block";
 }
 
 function calculatePrice(){
-let liters=parseFloat(document.getElementById("liters").value)||0;
-let price=liters*50;
-document.getElementById("price").innerText=price.toFixed(2);
+  let liters = parseFloat(document.getElementById("liters").value) || 0;
+  let price = liters * 50;
+  document.getElementById("price").innerText = price.toFixed(2);
+  document.getElementById("upiAmount").innerText = price.toFixed(2);
 }
 
-function processOrder(){
+async function processOrder(){
+  let name = document.getElementById("name").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let location = document.getElementById("location").value.trim();
+  let liters = parseFloat(document.getElementById("liters").value) || 0;
+  let payment = document.getElementById("payment").value;
 
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let location=document.getElementById("location").value;
-let liters=parseFloat(document.getElementById("liters").value)||0;
-let payment=document.getElementById("payment").value;
+  if(!name || !phone || !location || liters <= 0){
+    alert("Please fill all details correctly.");
+    return;
+  }
 
-let price=liters*50;
+  let price = liters * 50;
 
-let paymentTelugu = payment==="cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
+  let paymentTelugu = payment === "cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
 
-let message="పాలు ఆర్డర్ 🥛%0A%0A"
-+"పేరు: "+name+"%0A"
-+"ఫోన్ నంబర్: "+phone+"%0A"
-+"చిరునామా: "+location+"%0A"
-+"పాలు పరిమాణం: "+liters+" లీటర్లు%0A"
-+"మొత్తం ధర: ₹"+price+"%0A"
-+"చెల్లింపు విధానం: "+paymentTelugu;
+  let message = "పాలు ఆర్డర్ 🥛%0A%0A"
+    + "పేరు: " + name + "%0A"
+    + "ఫోన్ నంబర్: " + phone + "%0A"
+    + "చిరునామా: " + location + "%0A"
+    + "పాలు పరిమాణం: " + liters + " లీటర్లు%0A"
+    + "మొత్తం ధర: ₹" + price.toFixed(2) + "%0A"
+    + "చెల్లింపు విధానం: " + paymentTelugu;
 
-let whatsapp="https://wa.me/917207258984?text="+message;
+  pendingWhatsAppLink = "https://wa.me/917207258984?text=" + message;
+  pendingUpiLink = "upi://pay?pa=8328688331@ybl&pn=Milk Service&am=" + price.toFixed(2) + "&cu=INR";
 
-if(payment==="cod"){
-window.open(whatsapp,'_blank');
+  document.getElementById("successMsg").style.display = "none";
+
+  if(payment === "cod"){
+    document.getElementById("successMsg").style.display = "block";
+    window.open(pendingWhatsAppLink, "_blank");
+  } else {
+    document.getElementById("upiAmount").innerText = price.toFixed(2);
+    document.getElementById("upiBox").style.display = "block";
+    document.getElementById("upiBox").scrollIntoView({behavior:"smooth"});
+  }
 }
-else{
 
-let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
-
-window.location.href=upi;
-
-setTimeout(function(){
-alert("After payment click OK to send order");
-window.open(whatsapp,'_blank');
-},6000);
-
+function openUpiApp(){
+  if(pendingUpiLink){
+    window.location.href = pendingUpiLink;
+  }
 }
 
+function sendWhatsAppAfterPayment(){
+  document.getElementById("successMsg").style.display = "block";
+  if(pendingWhatsAppLink){
+    window.open(pendingWhatsAppLink, "_blank");
+  }
 }
-
 </script>
 
 </body>
-
 </html>
