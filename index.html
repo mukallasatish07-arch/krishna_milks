@@ -1,286 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fresh Milk Delivery</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresh Milk Delivery</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
 
-body{
-  background:url("new.jpg") center/cover no-repeat fixed;
-  color:white;
-  text-align:center;
-}
+    body{
+      background:url("new.jpg") center/cover no-repeat fixed;
+      color:white;
+      text-align:center;
+    }
 
-.overlay{
-  background:linear-gradient(rgba(0,0,0,0.72),rgba(0,0,0,0.72));
-  min-height:100vh;
-  padding:40px 20px;
-}
+    .overlay{
+      background:linear-gradient(rgba(0,0,0,0.72),rgba(0,0,0,0.72));
+      min-height:100vh;
+      padding:40px 20px;
+      animation:fadePage 1s ease;
+    }
 
-h1{
-  font-size:42px;
-  font-weight:700;
-  margin-top:20px;
-}
+    @keyframes fadePage{
+      from{opacity:0}
+      to{opacity:1}
+    }
 
-.subtitle{
-  opacity:0.9;
-  margin-top:10px;
-  font-size:16px;
-}
+    h1{
+      font-size:42px;
+      font-weight:700;
+      margin-top:20px;
+      animation:slideDown 1s ease;
+    }
 
-.btn{
-  background:linear-gradient(45deg,#00c853,#64dd17);
-  border:none;
-  padding:14px 28px;
-  font-size:17px;
-  border-radius:30px;
-  color:white;
-  cursor:pointer;
-  margin-top:20px;
-  transition:0.3s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.35);
-}
+    @keyframes slideDown{
+      from{transform:translateY(-35px);opacity:0}
+      to{transform:translateY(0);opacity:1}
+    }
 
-.btn:hover{
-  transform:scale(1.05);
-}
+    .subtitle{
+      opacity:0.9;
+      margin-top:10px;
+      font-size:16px;
+    }
 
-.container{
-  display:none;
-  backdrop-filter:blur(14px);
-  background:rgba(255,255,255,0.14);
-  border-radius:22px;
-  padding:25px;
-  max-width:430px;
-  margin:35px auto 0;
-  box-shadow:0 10px 30px rgba(0,0,0,0.45);
-}
+    .btn{
+      background:linear-gradient(45deg,#00c853,#64dd17);
+      border:none;
+      padding:14px 28px;
+      font-size:17px;
+      border-radius:30px;
+      color:white;
+      cursor:pointer;
+      margin-top:20px;
+      transition:0.3s;
+      box-shadow:0 5px 15px rgba(0,0,0,0.35);
+    }
 
-input,select{
-  width:100%;
-  padding:14px;
-  margin:10px 0;
-  border-radius:12px;
-  border:none;
-  outline:none;
-  font-size:15px;
-}
+    .btn:hover{
+      transform:scale(1.05);
+    }
 
-input:focus,select:focus{
-  box-shadow:0 0 8px #64dd17;
-}
+    .container{
+      display:none;
+      backdrop-filter:blur(14px);
+      background:rgba(255,255,255,0.14);
+      border-radius:22px;
+      padding:25px;
+      max-width:430px;
+      margin:35px auto 0;
+      box-shadow:0 10px 30px rgba(0,0,0,0.45);
+      animation:fadeIn 0.6s ease;
+    }
 
-.price{
-  margin-top:8px;
-  font-size:21px;
-  font-weight:600;
-}
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(18px);}
+      to{opacity:1;transform:translateY(0);}
+    }
 
-.review{
-  margin-top:28px;
-  opacity:0.95;
-  font-style:italic;
-  line-height:1.8;
-}
+    input,select{
+      width:100%;
+      padding:14px;
+      margin:10px 0;
+      border-radius:12px;
+      border:none;
+      outline:none;
+      font-size:15px;
+    }
 
-.success{
-  display:none;
-  margin-top:16px;
-  color:#98ff98;
-  font-weight:600;
-}
+    input:focus,select:focus{
+      box-shadow:0 0 8px #64dd17;
+    }
 
-.paymentBox{
-  display:none;
-  margin-top:20px;
-  background:rgba(255,255,255,0.12);
-  border-radius:18px;
-  padding:18px;
-}
+    .price{
+      margin-top:8px;
+      font-size:21px;
+      font-weight:600;
+    }
 
-.paymentBox h3{
-  margin-bottom:10px;
-}
+    .review{
+      margin-top:28px;
+      opacity:0.95;
+      font-style:italic;
+      line-height:1.8;
+    }
 
-.qr-img{
-  width:210px;
-  max-width:100%;
-  border-radius:14px;
-  background:#fff;
-  padding:8px;
-  margin-top:10px;
-}
+    .success{
+      display:none;
+      margin-top:16px;
+      color:#98ff98;
+      font-weight:600;
+    }
 
-.upi-text{
-  margin-top:10px;
-  font-size:15px;
-  line-height:1.7;
-}
+    .paymentBox{
+      display:none;
+      margin-top:20px;
+      background:rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:18px;
+      animation:fadeIn 0.5s ease;
+    }
 
-.small-btn{
-  background:linear-gradient(45deg,#ff9800,#ffb300);
-  border:none;
-  padding:12px 22px;
-  font-size:15px;
-  border-radius:28px;
-  color:white;
-  cursor:pointer;
-  margin:10px 6px 0;
-  transition:0.3s;
-}
+    .paymentBox h3{
+      margin-bottom:10px;
+    }
 
-.small-btn:hover{
-  transform:scale(1.04);
-}
+    .qr-img{
+      width:210px;
+      max-width:100%;
+      border-radius:14px;
+      background:#fff;
+      padding:8px;
+      margin-top:10px;
+    }
 
-.note{
-  margin-top:10px;
-  font-size:13px;
-  opacity:0.9;
-  line-height:1.6;
-}
-</style>
+    .upi-text{
+      margin-top:10px;
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .small-btn{
+      background:linear-gradient(45deg,#ff9800,#ffb300);
+      border:none;
+      padding:12px 22px;
+      font-size:15px;
+      border-radius:28px;
+      color:white;
+      cursor:pointer;
+      margin:10px 6px 0;
+      transition:0.3s;
+    }
+
+    .small-btn:hover{
+      transform:scale(1.04);
+    }
+
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      opacity:0.9;
+      line-height:1.6;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="overlay">
+  <div class="overlay">
+    <h1>🥛 Fresh Milk Service</h1>
+    <p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
 
-  <h1>🥛 Fresh Milk Service</h1>
-  <p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
+    <button class="btn" onclick="showOrder()">Order Milk</button>
 
-  <button class="btn" onclick="showOrder()">Order Milk</button>
-
-  <div class="review">
-    ⭐ “Pure & Fresh Milk Everyday”<br>
-    ⭐ “Fast Delivery & Trusted Service”
-  </div>
-
-  <div class="container" id="orderBox">
-    <h2>Place Your Order</h2>
-
-    <input type="text" id="name" placeholder="👤 Customer Name">
-    <input type="tel" id="phone" placeholder="📞 Phone Number">
-    <input type="text" id="location" placeholder="📍 Delivery Location">
-
-    <input
-      type="number"
-      id="liters"
-      placeholder="🥛 Enter liters (Example 1.5)"
-      step="0.1"
-      oninput="calculatePrice()"
-    >
-
-    <div class="price">
-      Total Price: ₹ <span id="price">0</span>
+    <div class="review">
+      ⭐ “Pure & Fresh Milk Everyday”<br>
+      ⭐ “Fast Delivery & Trusted Service”
     </div>
 
-    <select id="payment">
-      <option value="cod">💵 Cash on Delivery</option>
-      <option value="upi">📲 UPI Payment</option>
-    </select>
+    <div class="container" id="orderBox">
+      <h2>Place Your Order</h2>
 
-    <button class="btn" onclick="processOrder()">Confirm Order</button>
+      <input type="text" id="name" placeholder="👤 Customer Name">
+      <input type="tel" id="phone" placeholder="📞 Phone Number">
+      <input type="text" id="location" placeholder="📍 Delivery Location">
 
-    <div class="success" id="successMsg">
-      ✅ మీ ఆర్డర్ విజయవంతంగా పంపబడింది!
-    </div>
+      <input
+        type="number"
+        id="liters"
+        placeholder="🥛 Enter liters (Example 1.5)"
+        step="0.1"
+        oninput="calculatePrice()"
+      >
 
-    <div class="paymentBox" id="upiBox">
-      <h3>📲 Scan & Pay with Any UPI App</h3>
-      <img src="qr.jpg" alt="UPI QR Code" class="qr-img">
-
-      <div class="upi-text">
-        UPI ID: <b>8328688331@ybl</b><br>
-        Amount: ₹ <b id="upiAmount">0</b><br>
-        Apps: PhonePe / Paytm / GPay / Any UPI App
+      <div class="price">
+        Total Price: ₹ <span id="price">0</span>
       </div>
 
-      <div class="note">
-        PhonePe లేదా Paytm లేదా GPay లో QR scan చేసి payment complete చేసిన తర్వాత<br>
-        <b>I Have Paid</b> button నొక్కండి.
+      <select id="payment">
+        <option value="cod">💵 Cash on Delivery</option>
+        <option value="upi">📲 UPI Payment</option>
+      </select>
+
+      <button class="btn" onclick="processOrder()">Confirm Order</button>
+
+      <div class="success" id="successMsg">
+        ✅ మీ ఆర్డర్ విజయవంతంగా పంపబడింది!
       </div>
 
-      <button class="small-btn" onclick="copyUpiId()">Copy UPI ID</button>
-      <button class="small-btn" onclick="sendWhatsAppAfterPayment()">I Have Paid</button>
+      <div class="paymentBox" id="upiBox">
+        <h3>📲 Complete UPI Payment</h3>
+
+        <img src="qr.jpg" alt="UPI QR Code" class="qr-img">
+
+        <div class="upi-text">
+          UPI ID: <b>8328688331@ybl</b><br>
+          Amount: ₹ <b id="upiAmount">0</b><br>
+          Apps: PhonePe / Paytm / GPay / Any UPI App
+        </div>
+
+        <div class="note">
+          PhonePe లేదా Paytm లో payment complete చేసిన తర్వాత<br>
+          క్రింద <b>UTR / Transaction ID</b> పెట్టండి.
+        </div>
+
+        <button class="small-btn" onclick="openUpiApp()">Open UPI App</button>
+        <button class="small-btn" onclick="copyUpiId()">Copy UPI ID</button>
+
+        <input type="text" id="utr" placeholder="Enter UTR / Transaction ID">
+
+        <button class="small-btn" onclick="submitUtr()">Submit Payment Proof</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-let pendingWhatsAppLink = "";
+  <script>
+    let pendingWhatsAppLink = "";
+    let pendingUpiLink = "";
 
-function showOrder(){
-  document.getElementById("orderBox").style.display = "block";
-}
+    function showOrder(){
+      document.getElementById("orderBox").style.display = "block";
+    }
 
-function calculatePrice(){
-  let liters = parseFloat(document.getElementById("liters").value) || 0;
-  let price = liters * 50;
-  document.getElementById("price").innerText = price.toFixed(2);
-  document.getElementById("upiAmount").innerText = price.toFixed(2);
-}
+    function calculatePrice(){
+      let liters = parseFloat(document.getElementById("liters").value) || 0;
+      let price = liters * 50;
+      document.getElementById("price").innerText = price.toFixed(2);
+      document.getElementById("upiAmount").innerText = price.toFixed(2);
+    }
 
-async function processOrder(){
-  let name = document.getElementById("name").value.trim();
-  let phone = document.getElementById("phone").value.trim();
-  let location = document.getElementById("location").value.trim();
-  let liters = parseFloat(document.getElementById("liters").value) || 0;
-  let payment = document.getElementById("payment").value;
+    function processOrder(){
+      let name = document.getElementById("name").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+      let location = document.getElementById("location").value.trim();
+      let liters = parseFloat(document.getElementById("liters").value) || 0;
+      let payment = document.getElementById("payment").value;
 
-  if(!name || !phone || !location || liters <= 0){
-    alert("Please fill all details correctly.");
-    return;
-  }
+      if(!name || !phone || !location || liters <= 0){
+        alert("Please fill all details correctly.");
+        return;
+      }
 
-  let price = liters * 50;
-  let paymentTelugu = payment === "cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
+      let price = liters * 50;
+      let paymentTelugu = payment === "cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
 
-  let message = "పాలు ఆర్డర్ 🥛%0A%0A"
-    + "పేరు: " + name + "%0A"
-    + "ఫోన్ నంబర్: " + phone + "%0A"
-    + "చిరునామా: " + location + "%0A"
-    + "పాలు పరిమాణం: " + liters + " లీటర్లు%0A"
-    + "మొత్తం ధర: ₹" + price.toFixed(2) + "%0A"
-    + "చెల్లింపు విధానం: " + paymentTelugu;
+      let message = "పాలు ఆర్డర్ 🥛%0A%0A"
+        + "పేరు: " + name + "%0A"
+        + "ఫోన్ నంబర్: " + phone + "%0A"
+        + "చిరునామా: " + location + "%0A"
+        + "పాలు పరిమాణం: " + liters + " లీటర్లు%0A"
+        + "మొత్తం ధర: ₹" + price.toFixed(2) + "%0A"
+        + "చెల్లింపు విధానం: " + paymentTelugu;
 
-  pendingWhatsAppLink = "https://wa.me/917207258984?text=" + message;
-  document.getElementById("successMsg").style.display = "none";
+      pendingWhatsAppLink = "https://wa.me/917207258984?text=" + message;
+      pendingUpiLink = "upi://pay?pa=8328688331@ybl&pn=Milk Service&am=" + price.toFixed(2) + "&cu=INR";
 
-  if(payment === "cod"){
-    document.getElementById("successMsg").style.display = "block";
-    window.open(pendingWhatsAppLink, "_blank");
-  } else {
-    document.getElementById("upiAmount").innerText = price.toFixed(2);
-    document.getElementById("upiBox").style.display = "block";
-    document.getElementById("upiBox").scrollIntoView({behavior:"smooth"});
-  }
-}
+      document.getElementById("successMsg").style.display = "none";
+      document.getElementById("upiBox").style.display = "none";
+      document.getElementById("utr").value = "";
 
-function copyUpiId(){
-  navigator.clipboard.writeText("8328688331@ybl").then(function(){
-    alert("UPI ID copied: 8328688331@ybl");
-  });
-}
+      if(payment === "cod"){
+        document.getElementById("successMsg").style.display = "block";
+        window.open(pendingWhatsAppLink, "_blank");
+      } else {
+        document.getElementById("upiAmount").innerText = price.toFixed(2);
+        document.getElementById("upiBox").style.display = "block";
+        document.getElementById("upiBox").scrollIntoView({behavior:"smooth"});
+      }
+    }
 
-function sendWhatsAppAfterPayment(){
-  document.getElementById("successMsg").style.display = "block";
-  if(pendingWhatsAppLink){
-    window.open(pendingWhatsAppLink, "_blank");
-  }
-}
-</script>
+    function openUpiApp(){
+      if(pendingUpiLink){
+        window.location.href = pendingUpiLink;
+      }
+    }
+
+    function copyUpiId(){
+      navigator.clipboard.writeText("8328688331@ybl").then(function(){
+        alert("UPI ID copied: 8328688331@ybl");
+      });
+    }
+
+    function submitUtr(){
+      let utr = document.getElementById("utr").value.trim();
+
+      if(!utr){
+        alert("Please enter UTR / Transaction ID");
+        return;
+      }
+
+      let finalWhatsAppLink = pendingWhatsAppLink + "%0A" + "UTR ID: " + encodeURIComponent(utr);
+
+      document.getElementById("successMsg").style.display = "block";
+      window.open(finalWhatsAppLink, "_blank");
+    }
+  </script>
 
 </body>
 </html>
