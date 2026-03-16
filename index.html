@@ -1,228 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="te">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fresh Milk Delivery</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:url("new.jpg") center/cover no-repeat fixed;
-color:white;
-text-align:center;
-}
-
-/* DARK OVERLAY */
-.overlay{
-background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
-min-height:100vh;
-padding:40px 20px;
-}
-
-h1{
-font-size:42px;
-font-weight:600;
-margin-top:30px;
-}
-
-.subtitle{
-opacity:0.8;
-margin-top:10px;
-}
-
-/* PREMIUM BUTTON */
-.btn{
-background:linear-gradient(45deg,#00c853,#64dd17);
-border:none;
-padding:15px 28px;
-font-size:18px;
-border-radius:30px;
-color:white;
-cursor:pointer;
-margin-top:25px;
-transition:0.3s;
-box-shadow:0 5px 15px rgba(0,0,0,0.4);
-}
-
-.btn:hover{
-transform:scale(1.05);
-}
-
-/* PREMIUM FORM CARD */
-.container{
-display:none;
-backdrop-filter:blur(15px);
-background:rgba(255,255,255,0.15);
-border-radius:20px;
-padding:25px;
-max-width:420px;
-margin:35px auto;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-animation:fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* INPUT STYLE */
-input,select{
-width:100%;
-padding:14px;
-margin:10px 0;
-border-radius:10px;
-border:none;
-outline:none;
-font-size:15px;
-}
-
-input:focus{
-box-shadow:0 0 8px #64dd17;
-}
-
-/* PRICE BOX */
-.price{
-margin-top:10px;
-font-size:20px;
-font-weight:600;
-}
-
-.review{
-margin-top:30px;
-opacity:0.9;
-font-style:italic;
-}
-
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { padding:20px; }
+input, select, button { padding:10px; margin:5px 0; width:100%; font-size:16px; }
+#orderBox { display:none; margin-top:20px; padding:20px; border:1px solid #ccc; border-radius:10px; }
+button { background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+button:hover { background:#218838; }
 </style>
 </head>
-
 <body>
 
-<div class="overlay">
+<h2>Fresh Milk Delivery</h2>
+<button onclick="showOrder()">Place Order</button>
 
-<h1>🥛 Fresh Milk Service</h1>
-<p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
+<div id="orderBox">
+<label>పేరు:</label>
+<input type="text" id="name" placeholder="మీ పేరు">
 
-<button class="btn" onclick="showOrder()">Order Milk</button>
+<label>ఫోన్ నంబర్:</label>
+<input type="tel" id="phone" placeholder="మొబైల్ నంబర్">
 
-<div class="review">
-⭐ “Pure & Fresh Milk Everyday”  
-<br>
-⭐ “Fast Delivery & Trusted Service”-MUKALLA KRISHNA
-</div>
+<label>చిరునామా:</label>
+<input type="text" id="location" placeholder="మీ చిరునామా">
 
-<div class="container" id="orderBox">
+<label>పాలు పరిమాణం (లీటర్లు):</label>
+<input type="number" id="liters" placeholder="లీటర్లు" oninput="calculatePrice()">
 
-<h2>Place Your Order</h2>
+<p>మొత్తం ధర: ₹<span id="price">0.00</span></p>
 
-<input type="text" id="name" placeholder="👤 Customer Name">
-
-<input type="tel" id="phone" placeholder="📞 Phone Number">
-
-<input type="text" id="location" placeholder="📍 Delivery Location">
-
-<input type="number" id="liters"
-placeholder="🥛 Enter liters (Example 1.5)"
-step="0.1"
-oninput="calculatePrice()">
-
-<div class="price">
-Total Price: ₹ <span id="price">0</span>
-</div>
-
+<label>చెల్లింపు విధానం:</label>
 <select id="payment">
-<option value="cod">💵 Cash on Delivery</option>
-<option value="upi">📲 UPI Payment</option>
+<option value="cod">COD</option>
+<option value="upi">UPI</option>
 </select>
 
-<button class="btn" onclick="processOrder()">Confirm Order</button>
-
-</div>
-
+<button onclick="processOrder()">ఆర్డర్ చేయండి</button>
 </div>
 
 <script>
-async function translateToTelugu(text){
-let url="https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=te&dt=t&q="+encodeURIComponent(text);
-
-let response=await fetch(url);
-let data=await response.json();
-
-return data[0][0][0];
-}
-
-
 function showOrder(){
-document.getElementById("orderBox").style.display="block";
+    document.getElementById("orderBox").style.display="block";
 }
 
 function calculatePrice(){
-let liters=parseFloat(document.getElementById("liters").value)||0;
-let price=liters*50;
-document.getElementById("price").innerText=price.toFixed(2);
+    let liters = parseFloat(document.getElementById("liters").value) || 0;
+    let price = liters * 50;
+    document.getElementById("price").innerText = price.toFixed(2);
+}
+
+// Dummy translation function – replace with real API if available
+async function translateToTelugu(text){
+    return text;
 }
 
 async function processOrder(){
 
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let location=document.getElementById("location").value;
-let liters=parseFloat(document.getElementById("liters").value)||0;
-let payment=document.getElementById("payment").value;
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let location = document.getElementById("location").value;
+    let liters = parseFloat(document.getElementById("liters").value) || 0;
+    let payment = document.getElementById("payment").value;
 
-let price=liters*50;
+    let price = liters * 50;
 
-/* TRANSLATE NAME & LOCATION */
-let teluguName = await translateToTelugu(name);
-let teluguLocation = await translateToTelugu(location);
+    let teluguName = await translateToTelugu(name);
+    let teluguLocation = await translateToTelugu(location);
 
-let paymentTelugu =
-payment==="cod"
-? "డెలివరీ సమయంలో నగదు"
-: "UPI చెల్లింపు";
+    let paymentTelugu = payment==="cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
 
-/* TELUGU WHATSAPP MESSAGE */
-let message="పాలు ఆర్డర్"
-+"పేరు: "+teluguName+"%0A"
-+"ఫోన్ నంబర్: "+phone+"%0A"
-+"చిరునామా: "+teluguLocation+"%0A"
-+"పాలు పరిమాణం: "+liters+" లీటర్లు%0A"
-+"మొత్తం ధర: ₹"+price+"%0A"
-+"చెల్లింపు విధానం: "+paymentTelugu;
+    // Encode WhatsApp message
+    let message = encodeURIComponent(
+        "పాలు ఆర్డర్\n" +
+        "పేరు: " + teluguName + "\n" +
+        "ఫోన్ నంబర్: " + phone + "\n" +
+        "చిరునామా: " + teluguLocation + "\n" +
+        "పాలు పరిమాణం: " + liters + " లీటర్లు\n" +
+        "మొత్తం ధర: ₹" + price + "\n" +
+        "చెల్లింపు విధానం: " + paymentTelugu
+    );
 
-let whatsapp="https://wa.me/917207258984?text="+message;
+    let whatsapp = "https://wa.me/917207258984?text=" + message;
 
-if(payment==="cod"){
-window.open(whatsapp,'_blank');
-}
-else{
+    if(payment==="cod"){
+        // Open WhatsApp directly
+        window.location.href = whatsapp;
+    } else {
+        let upi = "upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
+        window.location.href = upi;
 
-let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
-
-window.location.href=upi;
-
-setTimeout(function(){
-alert("చెల్లింపు పూర్తయిన తరువాత OK నొక్కండి");
-window.open(whatsapp,'_blank');
-},6000);
-}
+        setTimeout(function(){
+            alert("చెల్లింపు పూర్తయిన తరువాత OK నొక్కండి");
+            window.location.href = whatsapp; // Redirect to WhatsApp after payment
+        },6000);
+    }
 
 }
-
-
-
-
-
 </script>
 
 </body>
