@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fresh Milk Delivery</title>
+<title>Perimual Dairy</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,91 +18,86 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:url("new.jpg") center/cover no-repeat fixed;
+height:100vh;
+background:url("new.jpg") no-repeat center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Dark overlay */
+body::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+z-index:-1;
+}
+
+/* Glass Card */
+.container{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+padding:30px;
+border-radius:20px;
+width:350px;
 color:white;
 text-align:center;
-}
-
-/* DARK OVERLAY */
-.overlay{
-background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
-min-height:100vh;
-padding:40px 20px;
-}
-
-h1{
-font-size:42px;
-font-weight:600;
-margin-top:30px;
-}
-
-.subtitle{
-opacity:0.8;
-margin-top:10px;
-}
-
-/* PREMIUM BUTTON */
-.btn{
-background:linear-gradient(45deg,#00c853,#64dd17);
-border:none;
-padding:15px 28px;
-font-size:18px;
-border-radius:30px;
-color:white;
-cursor:pointer;
-margin-top:25px;
-transition:0.3s;
-box-shadow:0 5px 15px rgba(0,0,0,0.4);
-}
-
-.btn:hover{
-transform:scale(1.05);
-}
-
-/* PREMIUM FORM CARD */
-.container{
-display:none;
-backdrop-filter:blur(15px);
-background:rgba(255,255,255,0.15);
-border-radius:20px;
-padding:25px;
-max-width:420px;
-margin:35px auto;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-animation:fadeIn 0.6s ease;
+animation:fadeIn 1.2s ease;
+box-shadow:0 0 30px rgba(0,0,0,0.4);
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
 }
 
-/* INPUT STYLE */
+h1{
+margin-bottom:10px;
+font-weight:700;
+}
+
+p{
+font-size:14px;
+margin-bottom:20px;
+color:#ddd;
+}
+
+/* Inputs */
 input,select{
 width:100%;
-padding:14px;
-margin:10px 0;
-border-radius:10px;
+padding:10px;
+margin:8px 0;
 border:none;
+border-radius:8px;
 outline:none;
-font-size:15px;
 }
 
-input:focus{
-box-shadow:0 0 8px #64dd17;
+/* Button */
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
 }
 
-/* PRICE BOX */
+button:hover{
+transform:scale(1.05);
+}
+
+/* Price */
 .price{
 margin-top:10px;
-font-size:20px;
-font-weight:600;
-}
-
-.review{
-margin-top:30px;
-opacity:0.9;
-font-style:italic;
+font-size:18px;
+font-weight:bold;
+color:#00ffcc;
 }
 
 </style>
@@ -108,95 +105,84 @@ font-style:italic;
 
 <body>
 
-<div class="overlay">
+<div class="container">
 
-<h1>🥛 Fresh Milk Service</h1>
-<p class="subtitle">Trusted Milk Delivery Since 20+ Years</p>
+<h1>🥛 Perimual Dairy</h1>
+<p>Fresh Milk Delivered Daily</p>
 
-<button class="btn" onclick="showOrder()">Order Milk</button>
+<input type="text" id="name" placeholder="Customer Name">
+<input type="tel" id="phone" placeholder="Phone Number">
+<input type="text" id="location" placeholder="Location">
 
-<div class="review">
-⭐ “Pure & Fresh Milk Everyday”  
-<br>
-⭐ “Fast Delivery & Trusted Service”-MUKALLA KRISHNA
-</div>
-
-<div class="container" id="orderBox">
-
-<h2>Place Your Order</h2>
-
-<input type="text" id="name" placeholder="👤 Customer Name">
-
-<input type="tel" id="phone" placeholder="📞 Phone Number">
-
-<input type="text" id="location" placeholder="📍 Delivery Location">
-
-<input type="number" id="liters"
-placeholder="🥛 Enter liters (Example 1.5)"
-step="0.1"
+<input type="number" step="0.1" id="liters"
+placeholder="Enter Liters (ex: 1.5)"
 oninput="calculatePrice()">
 
-<div class="price">
-Total Price: ₹ <span id="price">0</span>
-</div>
+<div class="price" id="total">Total: ₹0</div>
 
 <select id="payment">
-<option value="cod">💵 Cash on Delivery</option>
-<option value="upi">📲 UPI Payment</option>
+<option value="upi">UPI Payment</option>
+<option value="cod">Cash On Delivery</option>
 </select>
 
-<button class="btn" onclick="processOrder()">Confirm Order</button>
-
-</div>
+<button onclick="placeOrder()">Order Milk</button>
 
 </div>
 
 <script>
 
-function showOrder(){
-document.getElementById("orderBox").style.display="block";
-}
+const pricePerLiter = 50;
 
 function calculatePrice(){
-let liters=parseFloat(document.getElementById("liters").value)||0;
-let price=liters*50;
-document.getElementById("price").innerText=price.toFixed(2);
+let liters = document.getElementById("liters").value;
+let total = liters * pricePerLiter || 0;
+document.getElementById("total").innerText =
+"Total: ₹" + total;
 }
 
-function processOrder(){
+function placeOrder(){
 
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let location=document.getElementById("location").value;
-let liters=parseFloat(document.getElementById("liters").value)||0;
+let liters=document.getElementById("liters").value;
 let payment=document.getElementById("payment").value;
 
-let price=liters*50;
+let total = liters * pricePerLiter;
 
-let message="Milk Order%0A%0A"
-+"Name: "+name+"%0A"
-+"Phone: "+phone+"%0A"
-+"Location: "+location+"%0A"
-+"Liters: "+liters+" L%0A"
-+"Total Price: ₹"+price+"%0A"
-+"Payment: "+payment.toUpperCase();
+if(!name || !phone || !location || !liters){
+alert("Please fill all details");
+return;
+}
 
-let whatsapp="https://wa.me/917207258984?text="+message;
+let message =
+`Milk Order 🥛
+Name: ${name}
+Phone: ${phone}
+Location: ${location}
+Liters: ${liters}
+Total: ₹${total}
+Payment: ${payment}`;
 
-if(payment==="cod"){
-window.open(whatsapp,'_blank');
+let whatsapp =
+"https://wa.me/918328688331?text=" +
+encodeURIComponent(message);
+
+/* Payment Logic */
+if(payment==="upi"){
+
+let upi =
+`upi://pay?pa=8328688331@ybl&pn=Perimual Dairy&am=${total}&cu=INR`;
+
+window.location.href = upi;
+
+setTimeout(()=>{
+window.open(whatsapp,"_blank");
+},5000);
+
 }
 else{
-
-let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
-
-window.location.href=upi;
-
-setTimeout(function(){
-alert("After payment click OK to send order");
-window.open(whatsapp,'_blank');
-},6000);
-
+window.open(whatsapp,"_blank");
 }
 
 }
