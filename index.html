@@ -226,11 +226,12 @@
         </div>
 
         <div class="note">
-          PhonePe లేదా Paytm లో payment complete చేసిన తర్వాత<br>
+          PhonePe లేదా Paytm ద్వారా payment complete చేసిన తర్వాత<br>
           క్రింద <b>UTR / Transaction ID</b> పెట్టండి.
         </div>
 
-        <button class="small-btn" onclick="openUpiApp()">Open UPI App</button>
+        <button class="small-btn" onclick="openPhonePe()">Pay with PhonePe</button>
+        <button class="small-btn" onclick="openPaytm()">Pay with Paytm</button>
         <button class="small-btn" onclick="copyUpiId()">Copy UPI ID</button>
 
         <input type="text" id="utr" placeholder="Enter UTR / Transaction ID">
@@ -295,10 +296,20 @@
       }
     }
 
-    function openUpiApp(){
-      if(pendingUpiLink){
-        window.location.href = pendingUpiLink;
+    function openPhonePe(){
+      if(!pendingUpiLink){
+        alert("Please fill order details first.");
+        return;
       }
+      window.location.href = pendingUpiLink;
+    }
+
+    function openPaytm(){
+      if(!pendingUpiLink){
+        alert("Please fill order details first.");
+        return;
+      }
+      window.location.href = pendingUpiLink;
     }
 
     function copyUpiId(){
