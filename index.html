@@ -25,24 +25,12 @@ body{
   background:linear-gradient(rgba(0,0,0,0.72),rgba(0,0,0,0.72));
   min-height:100vh;
   padding:40px 20px;
-  animation:fadePage 1s ease;
-}
-
-@keyframes fadePage{
-  from{opacity:0}
-  to{opacity:1}
 }
 
 h1{
   font-size:42px;
   font-weight:700;
   margin-top:20px;
-  animation:slideDown 1s ease;
-}
-
-@keyframes slideDown{
-  from{transform:translateY(-35px);opacity:0}
-  to{transform:translateY(0);opacity:1}
 }
 
 .subtitle{
@@ -77,12 +65,6 @@ h1{
   max-width:430px;
   margin:35px auto 0;
   box-shadow:0 10px 30px rgba(0,0,0,0.45);
-  animation:fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(18px);}
-  to{opacity:1;transform:translateY(0);}
 }
 
 input,select{
@@ -125,7 +107,6 @@ input:focus,select:focus{
   background:rgba(255,255,255,0.12);
   border-radius:18px;
   padding:18px;
-  animation:fadeIn 0.5s ease;
 }
 
 .paymentBox h3{
@@ -217,20 +198,21 @@ input:focus,select:focus{
     </div>
 
     <div class="paymentBox" id="upiBox">
-      <h3>📲 Scan & Pay</h3>
+      <h3>📲 Scan & Pay with Any UPI App</h3>
       <img src="qr.jpg" alt="UPI QR Code" class="qr-img">
 
       <div class="upi-text">
         UPI ID: <b>8328688331@ybl</b><br>
-        Amount: ₹ <b id="upiAmount">0</b>
+        Amount: ₹ <b id="upiAmount">0</b><br>
+        Apps: PhonePe / Paytm / GPay / Any UPI App
       </div>
 
       <div class="note">
-        QR scan చేసి payment complete చేసిన తర్వాత<br>
+        PhonePe లేదా Paytm లేదా GPay లో QR scan చేసి payment complete చేసిన తర్వాత<br>
         <b>I Have Paid</b> button నొక్కండి.
       </div>
 
-      <button class="small-btn" onclick="openUpiApp()">Open UPI App</button>
+      <button class="small-btn" onclick="copyUpiId()">Copy UPI ID</button>
       <button class="small-btn" onclick="sendWhatsAppAfterPayment()">I Have Paid</button>
     </div>
   </div>
@@ -238,7 +220,6 @@ input:focus,select:focus{
 
 <script>
 let pendingWhatsAppLink = "";
-let pendingUpiLink = "";
 
 function showOrder(){
   document.getElementById("orderBox").style.display = "block";
@@ -264,7 +245,6 @@ async function processOrder(){
   }
 
   let price = liters * 50;
-
   let paymentTelugu = payment === "cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
 
   let message = "పాలు ఆర్డర్ 🥛%0A%0A"
@@ -276,8 +256,6 @@ async function processOrder(){
     + "చెల్లింపు విధానం: " + paymentTelugu;
 
   pendingWhatsAppLink = "https://wa.me/917207258984?text=" + message;
-  pendingUpiLink = "upi://pay?pa=8328688331@ybl&pn=Milk Service&am=" + price.toFixed(2) + "&cu=INR";
-
   document.getElementById("successMsg").style.display = "none";
 
   if(payment === "cod"){
@@ -290,10 +268,10 @@ async function processOrder(){
   }
 }
 
-function openUpiApp(){
-  if(pendingUpiLink){
-    window.location.href = pendingUpiLink;
-  }
+function copyUpiId(){
+  navigator.clipboard.writeText("8328688331@ybl").then(function(){
+    alert("UPI ID copied: 8328688331@ybl");
+  });
 }
 
 function sendWhatsAppAfterPayment(){
