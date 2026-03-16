@@ -1,107 +1,70 @@
 <!DOCTYPE html>
-<html lang="te">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fresh Milk Delivery</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { padding:20px; }
-input, select, button { padding:10px; margin:5px 0; width:100%; font-size:16px; }
-#orderBox { display:none; margin-top:20px; padding:20px; border:1px solid #ccc; border-radius:10px; }
-button { background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-button:hover { background:#218838; }
-</style>
-</head>
-<body>
 
-<h2>Fresh Milk Delivery</h2>
-<button onclick="showOrder()">Place Order</button>
+return data[0][0][0];
+}
 
-<div id="orderBox">
-<label>పేరు:</label>
-<input type="text" id="name" placeholder="మీ పేరు">
 
-<label>ఫోన్ నంబర్:</label>
-<input type="tel" id="phone" placeholder="మొబైల్ నంబర్">
-
-<label>చిరునామా:</label>
-<input type="text" id="location" placeholder="మీ చిరునామా">
-
-<label>పాలు పరిమాణం (లీటర్లు):</label>
-<input type="number" id="liters" placeholder="లీటర్లు" oninput="calculatePrice()">
-
-<p>మొత్తం ధర: ₹<span id="price">0.00</span></p>
-
-<label>చెల్లింపు విధానం:</label>
-<select id="payment">
-<option value="cod">COD</option>
-<option value="upi">UPI</option>
-</select>
-
-<button onclick="processOrder()">ఆర్డర్ చేయండి</button>
-</div>
-
-<script>
 function showOrder(){
-    document.getElementById("orderBox").style.display="block";
+document.getElementById("orderBox").style.display="block";
 }
 
 function calculatePrice(){
-    let liters = parseFloat(document.getElementById("liters").value) || 0;
-    let price = liters * 50;
-    document.getElementById("price").innerText = price.toFixed(2);
-}
-
-// Dummy translation function – replace with real API if available
-async function translateToTelugu(text){
-    return text;
+let liters=parseFloat(document.getElementById("liters").value)||0;
+let price=liters*50;
+document.getElementById("price").innerText=price.toFixed(2);
 }
 
 async function processOrder(){
 
-    let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let location = document.getElementById("location").value;
-    let liters = parseFloat(document.getElementById("liters").value) || 0;
-    let payment = document.getElementById("payment").value;
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let location=document.getElementById("location").value;
+let liters=parseFloat(document.getElementById("liters").value)||0;
+let payment=document.getElementById("payment").value;
 
-    let price = liters * 50;
+let price=liters*50;
 
-    let teluguName = await translateToTelugu(name);
-    let teluguLocation = await translateToTelugu(location);
+/* TRANSLATE NAME & LOCATION */
+let teluguName = await translateToTelugu(name);
+let teluguLocation = await translateToTelugu(location);
 
-    let paymentTelugu = payment==="cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
+let paymentTelugu =
+payment==="cod"
+? "డెలివరీ సమయంలో నగదు"
+: "UPI చెల్లింపు";
 
-    // Encode WhatsApp message
-    let message = encodeURIComponent(
-        "పాలు ఆర్డర్\n" +
-        "పేరు: " + teluguName + "\n" +
-        "ఫోన్ నంబర్: " + phone + "\n" +
-        "చిరునామా: " + teluguLocation + "\n" +
-        "పాలు పరిమాణం: " + liters + " లీటర్లు\n" +
-        "మొత్తం ధర: ₹" + price + "\n" +
-        "చెల్లింపు విధానం: " + paymentTelugu
-    );
+/* TELUGU WHATSAPP MESSAGE */
+let message="పాలు ఆర్డర్"
++"పేరు: "+teluguName+"%0A"
++"ఫోన్ నంబర్: "+phone+"%0A"
++"చిరునామా: "+teluguLocation+"%0A"
++"పాలు పరిమాణం: "+liters+" లీటర్లు%0A"
++"మొత్తం ధర: ₹"+price+"%0A"
++"చెల్లింపు విధానం: "+paymentTelugu;
+let whatsapp="https://wa.me/917207258984?text="+message;
+if(payment==="cod"){
+window.open(whatsapp,'_blank');
+}
+else{
 
-    let whatsapp = "https://wa.me/917207258984?text=" + message;
+let upi="upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
 
-    if(payment==="cod"){
-        // Open WhatsApp directly
-        window.location.href = whatsapp;
-    } else {
-        let upi = "upi://pay?pa=8328688331@ybl&pn=Milk Service&am="+price+"&cu=INR";
-        window.location.href = upi;
+window.location.href=upi;
 
-        setTimeout(function(){
-            alert("చెల్లింపు పూర్తయిన తరువాత OK నొక్కండి");
-            window.location.href = whatsapp; // Redirect to WhatsApp after payment
-        },6000);
-    }
+setTimeout(function(){
+alert("చెల్లింపు పూర్తయిన తరువాత OK నొక్కండి");
+window.open(whatsapp,'_blank');
+},6000);
+}
 
 }
+
+
+
+
+
 </script>
 
 </body>
+
 </html>
