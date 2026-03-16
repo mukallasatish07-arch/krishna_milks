@@ -173,13 +173,15 @@ let payment=document.getElementById("payment").value;
 
 let price=liters*50;
 
-let message="Milk Order%0A%0A"
-+"Name: "+name+"%0A"
-+"Phone: "+phone+"%0A"
-+"Location: "+location+"%0A"
-+"Liters: "+liters+" L%0A"
-+"Total Price: ₹"+price+"%0A"
-+"Payment: "+payment.toUpperCase();
+let paymentTelugu = payment==="cod" ? "డెలివరీ సమయంలో నగదు" : "UPI చెల్లింపు";
+
+let message="పాలు ఆర్డర్ 🥛%0A%0A"
++"పేరు: "+name+"%0A"
++"ఫోన్ నంబర్: "+phone+"%0A"
++"చిరునామా: "+location+"%0A"
++"పాలు పరిమాణం: "+liters+" లీటర్లు%0A"
++"మొత్తం ధర: ₹"+price+"%0A"
++"చెల్లింపు విధానం: "+paymentTelugu;
 
 let whatsapp="https://wa.me/917207258984?text="+message;
 
